@@ -5,9 +5,225 @@
     xmlns:local="using:RelativePanelImplicitAnimation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:C211.Uwp.Composition.Behaviors"
+    xmlns:controls="using:C211.Uwp.Composition.Controls"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="LayoutRoot">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1200" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="ImageDetails.(RelativePanel.RightOf)"
+                                Value="Poster" />
+                        <Setter Target="ImageDetails.(RelativePanel.AlignRightWithPanel)"
+                                Value="True" />
+                        <Setter Target="CommentsScrollviewer.(RelativePanel.RightOf)"
+                                Value="Poster" />
+                        <Setter Target="CommentsScrollviewer.(RelativePanel.Below)"
+                                Value="ImageDetails" />
+                        <Setter Target="CommentsScrollviewer.(RelativePanel.AlignBottomWithPanel)"
+                                Value="True" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="NormalState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="Poster.(UserControl.Width)"
+                                Value="500" />
+                        <Setter Target="Poster.(UserControl.Height)"
+                                Value="700" />
+
+                        <Setter Target="ImageDetails.(RelativePanel.Below)"
+                                Value="Poster" />
+                        <Setter Target="ImageDetails.(RelativePanel.AlignRightWith)"
+                                Value="Poster" />
+                        <Setter Target="ImageDetails.(RelativePanel.AlignLeftWithPanel)"
+                                Value="True" />
+                        <Setter Target="ImageDetails.Margin"
+                                Value="12" />
+
+                        <Setter Target="CommentsScrollviewer.(RelativePanel.RightOf)"
+                                Value="Poster" />
+                        <Setter Target="CommentsScrollviewer.(RelativePanel.AlignBottomWithPanel)"
+                                Value="True" />
+
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+
+                        <Setter Target="Poster.(UserControl.Width)"
+                                Value="200" />
+                        <Setter Target="Poster.(UserControl.Height)"
+                                Value="300" />
+
+                        <Setter Target="ImageDetails.(RelativePanel.Below)"
+                                Value="Poster" />
+                        <Setter Target="CommentsScrollviewer.(RelativePanel.Below)"
+                                Value="ImageDetails" />
+
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+
+        <RelativePanel HorizontalAlignment="Stretch"
+                       Margin="20">
+
+            <controls:VisualControl ImageUri="ms-appx:///assets/IMG_1343.JPG"
+                                    x:Name="Poster"
+                                    Width="600"
+                                    Height="900"
+                                    Margin="12">
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:SizeAndOffsetImplicitAnimationBehavior DurationMilliSeconds="300" />
+                </interactivity:Interaction.Behaviors>
+            </controls:VisualControl>
+
+            <StackPanel x:Name="ImageDetails"
+                        Background="LightBlue">
+                <StackPanel Margin="12">
+                    <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"
+                               Text="This is the Image Title"
+                               Margin="12" />
+                    <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                               Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                               Margin="12" />
+                </StackPanel>
+
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:SizeAndOffsetImplicitAnimationBehavior DurationMilliSeconds="300" />
+                </interactivity:Interaction.Behaviors>
+
+            </StackPanel>
+
+            <ScrollViewer x:Name="CommentsScrollviewer">
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:SizeAndOffsetImplicitAnimationBehavior DurationMilliSeconds="300" />
+                </interactivity:Interaction.Behaviors>
+                <StackPanel Background="Azure">
+                    <TextBlock x:Name="FirstNameLabel"
+                               Style="{StaticResource HeaderTextBlockStyle}"
+                               Text="Comments"
+                               Margin="12" />
+
+                    <StackPanel Margin="12">
+                        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"
+                                   Text="This is a comment title"
+                                   Margin="12" />
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam tortor lacus, vel vulputate felis malesuada nec. Mauris posuere a velit ac condimentum. Nullam gravida ante erat, ullamcorper ultrices metus congue et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum venenatis, tortor a scelerisque interdum, nunc ipsum tincidunt nisi, ut tempor sem neque a ligula. Nullam iaculis nisi ac maximus ornare. Vivamus vitae euismod sem. Integer venenatis lorem non blandit lacinia. Mauris tincidunt velit ante, sit amet malesuada arcu commodo at."
+                                   Margin="12" />
+                    </StackPanel>
+                    <StackPanel Margin="12">
+                        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"
+                                   Text="This is a comment title"
+                                   Margin="12" />
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam tortor lacus, vel vulputate felis malesuada nec. Mauris posuere a velit ac condimentum. Nullam gravida ante erat, ullamcorper ultrices metus congue et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum venenatis, tortor a scelerisque interdum, nunc ipsum tincidunt nisi, ut tempor sem neque a ligula. Nullam iaculis nisi ac maximus ornare. Vivamus vitae euismod sem. Integer venenatis lorem non blandit lacinia. Mauris tincidunt velit ante, sit amet malesuada arcu commodo at."
+                                   Margin="12" />
+                    </StackPanel>
+                    <StackPanel Margin="12">
+                        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"
+                                   Text="This is a comment title"
+                                   Margin="12" />
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam tortor lacus, vel vulputate felis malesuada nec. Mauris posuere a velit ac condimentum. Nullam gravida ante erat, ullamcorper ultrices metus congue et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum venenatis, tortor a scelerisque interdum, nunc ipsum tincidunt nisi, ut tempor sem neque a ligula. Nullam iaculis nisi ac maximus ornare. Vivamus vitae euismod sem. Integer venenatis lorem non blandit lacinia. Mauris tincidunt velit ante, sit amet malesuada arcu commodo at."
+                                   Margin="12" />
+                    </StackPanel>
+                    <StackPanel Margin="12">
+                        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"
+                                   Text="This is a comment title"
+                                   Margin="12" />
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam tortor lacus, vel vulputate felis malesuada nec. Mauris posuere a velit ac condimentum. Nullam gravida ante erat, ullamcorper ultrices metus congue et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum venenatis, tortor a scelerisque interdum, nunc ipsum tincidunt nisi, ut tempor sem neque a ligula. Nullam iaculis nisi ac maximus ornare. Vivamus vitae euismod sem. Integer venenatis lorem non blandit lacinia. Mauris tincidunt velit ante, sit amet malesuada arcu commodo at."
+                                   Margin="12" />
+                    </StackPanel>
+                    <StackPanel Margin="12">
+                        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"
+                                   Text="This is a comment title"
+                                   Margin="12" />
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam tortor lacus, vel vulputate felis malesuada nec. Mauris posuere a velit ac condimentum. Nullam gravida ante erat, ullamcorper ultrices metus congue et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum venenatis, tortor a scelerisque interdum, nunc ipsum tincidunt nisi, ut tempor sem neque a ligula. Nullam iaculis nisi ac maximus ornare. Vivamus vitae euismod sem. Integer venenatis lorem non blandit lacinia. Mauris tincidunt velit ante, sit amet malesuada arcu commodo at."
+                                   Margin="12" />
+                    </StackPanel>
+                    <StackPanel Margin="12">
+                        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"
+                                   Text="This is a comment title"
+                                   Margin="12" />
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam tortor lacus, vel vulputate felis malesuada nec. Mauris posuere a velit ac condimentum. Nullam gravida ante erat, ullamcorper ultrices metus congue et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum venenatis, tortor a scelerisque interdum, nunc ipsum tincidunt nisi, ut tempor sem neque a ligula. Nullam iaculis nisi ac maximus ornare. Vivamus vitae euismod sem. Integer venenatis lorem non blandit lacinia. Mauris tincidunt velit ante, sit amet malesuada arcu commodo at."
+                                   Margin="12" />
+                    </StackPanel>
+                    <StackPanel Margin="12">
+                        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"
+                                   Text="This is a comment title"
+                                   Margin="12" />
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam tortor lacus, vel vulputate felis malesuada nec. Mauris posuere a velit ac condimentum. Nullam gravida ante erat, ullamcorper ultrices metus congue et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum venenatis, tortor a scelerisque interdum, nunc ipsum tincidunt nisi, ut tempor sem neque a ligula. Nullam iaculis nisi ac maximus ornare. Vivamus vitae euismod sem. Integer venenatis lorem non blandit lacinia. Mauris tincidunt velit ante, sit amet malesuada arcu commodo at."
+                                   Margin="12" />
+                    </StackPanel>
+                    <StackPanel Margin="12">
+                        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"
+                                   Text="This is a comment title"
+                                   Margin="12" />
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam tortor lacus, vel vulputate felis malesuada nec. Mauris posuere a velit ac condimentum. Nullam gravida ante erat, ullamcorper ultrices metus congue et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum venenatis, tortor a scelerisque interdum, nunc ipsum tincidunt nisi, ut tempor sem neque a ligula. Nullam iaculis nisi ac maximus ornare. Vivamus vitae euismod sem. Integer venenatis lorem non blandit lacinia. Mauris tincidunt velit ante, sit amet malesuada arcu commodo at."
+                                   Margin="12" />
+                    </StackPanel>
+                    <StackPanel Margin="12">
+                        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"
+                                   Text="This is a comment title"
+                                   Margin="12" />
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam tortor lacus, vel vulputate felis malesuada nec. Mauris posuere a velit ac condimentum. Nullam gravida ante erat, ullamcorper ultrices metus congue et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum venenatis, tortor a scelerisque interdum, nunc ipsum tincidunt nisi, ut tempor sem neque a ligula. Nullam iaculis nisi ac maximus ornare. Vivamus vitae euismod sem. Integer venenatis lorem non blandit lacinia. Mauris tincidunt velit ante, sit amet malesuada arcu commodo at."
+                                   Margin="12" />
+                    </StackPanel>
+                    <StackPanel Margin="12">
+                        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"
+                                   Text="This is a comment title"
+                                   Margin="12" />
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam tortor lacus, vel vulputate felis malesuada nec. Mauris posuere a velit ac condimentum. Nullam gravida ante erat, ullamcorper ultrices metus congue et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum venenatis, tortor a scelerisque interdum, nunc ipsum tincidunt nisi, ut tempor sem neque a ligula. Nullam iaculis nisi ac maximus ornare. Vivamus vitae euismod sem. Integer venenatis lorem non blandit lacinia. Mauris tincidunt velit ante, sit amet malesuada arcu commodo at."
+                                   Margin="12" />
+                    </StackPanel>
+                    <StackPanel Margin="12">
+                        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"
+                                   Text="This is a comment title"
+                                   Margin="12" />
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam tortor lacus, vel vulputate felis malesuada nec. Mauris posuere a velit ac condimentum. Nullam gravida ante erat, ullamcorper ultrices metus congue et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum venenatis, tortor a scelerisque interdum, nunc ipsum tincidunt nisi, ut tempor sem neque a ligula. Nullam iaculis nisi ac maximus ornare. Vivamus vitae euismod sem. Integer venenatis lorem non blandit lacinia. Mauris tincidunt velit ante, sit amet malesuada arcu commodo at."
+                                   Margin="12" />
+                    </StackPanel>
+                    <StackPanel Margin="12">
+                        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"
+                                   Text="This is a comment title"
+                                   Margin="12" />
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam tortor lacus, vel vulputate felis malesuada nec. Mauris posuere a velit ac condimentum. Nullam gravida ante erat, ullamcorper ultrices metus congue et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum venenatis, tortor a scelerisque interdum, nunc ipsum tincidunt nisi, ut tempor sem neque a ligula. Nullam iaculis nisi ac maximus ornare. Vivamus vitae euismod sem. Integer venenatis lorem non blandit lacinia. Mauris tincidunt velit ante, sit amet malesuada arcu commodo at."
+                                   Margin="12" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+
+        </RelativePanel>
 
     </Grid>
 </Page>
