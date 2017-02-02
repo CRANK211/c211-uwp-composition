@@ -11,20 +11,21 @@ In this sample I am assuming the following:
 ## Dependencies
 In this sample we are using:
 
-* Robmikh.CompositionSurfaceFactory to load an image
+* `Robmikh.CompositionSurfaceFactory` NuGet to load an image
+* `Microsoft.Xaml.Behaviors.Uwp.Managed` NuGet to build a `Behavior`
 
 ### Getting Started ###
-1. `Main.xaml` defines the layout for our sample app. We start with a `Grid` element as out LayoutRoot:
+ 1. `Main.xaml` defines the layout for our sample app. We start with a `Grid` element as out LayoutRoot:
 
-```xaml
+```xml
 <Grid x:Name="LayoutRoot">
 
 </Grid>
 ```
 
-2. We then add the visual state defintions that determine how our UI reacts based upon the view size:
+ 2. Within the `Grid` we find the visual state definitions that determine how our UI reacts based upon the view size:
 
-```xaml
+```xml
     <Grid x:Name="LayoutRoot">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -101,15 +102,13 @@ In this sample we are using:
 
 > **Note**: We have defined a number of snap points in our app >=1200 >=800 and >=0
 
-3. No we are going to create our layout. We will use a `RelativePanel` to position 3 blocks of content:
+ 3. Now we are going to specify the layout. You will see we use a `RelativePanel` to position 3 blocks of content:
     * An image
     * A description of the image
     * A scrolling region of items representing CommentsScrollviewer
 
-    Insert the following below the `</VisualStateManager.VisualStateGroups>` line:
-
-    ```xaml
-            <RelativePanel HorizontalAlignment="Stretch"
+    ```xml
+        <RelativePanel HorizontalAlignment="Stretch"
                        Margin="20">
 
             <controls:VisualControl ImageUri="ms-appx:///assets/IMG_1343.JPG"
@@ -117,6 +116,9 @@ In this sample we are using:
                                     Width="600"
                                     Height="900"
                                     Margin="12">
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:SizeAndOffsetImplicitAnimationBehavior DurationMilliSeconds="300" />
+                </interactivity:Interaction.Behaviors>
             </controls:VisualControl>
 
             <StackPanel x:Name="ImageDetails"
@@ -130,9 +132,16 @@ In this sample we are using:
                                Margin="12" />
                 </StackPanel>
 
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:SizeAndOffsetImplicitAnimationBehavior DurationMilliSeconds="300" />
+                </interactivity:Interaction.Behaviors>
+
             </StackPanel>
 
             <ScrollViewer x:Name="CommentsScrollviewer">
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:SizeAndOffsetImplicitAnimationBehavior DurationMilliSeconds="300" />
+                </interactivity:Interaction.Behaviors>
                 <StackPanel Background="Azure">
                     <TextBlock x:Name="FirstNameLabel"
                                Style="{StaticResource HeaderTextBlockStyle}"
@@ -239,4 +248,124 @@ In this sample we are using:
             </ScrollViewer>
         </RelativePanel>
     ```
+> Note: You will see within each of the blocks we reference a behavior:
+```xml
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:SizeAndOffsetImplicitAnimationBehavior DurationMilliSeconds="300" />
+                </interactivity:Interaction.Behaviors>
+```
+    This behavior is where the magic happens...
 
+ 4. Open the `SizeAndOffsetImplicitAnimationBehavior` (snappily named...) within the `C211.Uwp.Composition` class library and lets review what happens there.
+
+ 5. First we define the class and that it extends the Behavior base class:
+ ```csharp
+    public class SizeAndOffsetImplicitAnimationBehavior : Behavior<DependencyObject>
+    {
+ ```
+ 6. We create member that maintains a reference to the `Compositor` instance once we have obtained a reference to it.
+
+ ```csharp
+ private static Compositor _compositor;
+ ```
+
+ 7. We define a `DependencyProperty` that allows the animation duration to be specified. 
+ ```csharp
+        /// <summary>
+        ///     The duration of the animations in MilliSeconds
+        /// </summary>
+        public static readonly DependencyProperty DurationMilliSecondsProperty = DependencyProperty.Register(
+            "DurationMilliSeconds", typeof(double), typeof(SizeAndOffsetImplicitAnimationBehavior),
+            new PropertyMetadata(200d));
+
+        /// <summary>
+        ///     The duration of the animations in MilliSeconds
+        /// </summary>
+        public double DurationMilliSeconds
+        {
+            get { return (double) GetValue(DurationMilliSecondsProperty); }
+            set { SetValue(DurationMilliSecondsProperty, value); }
+        }
+ ``` 
+ 8. We define a collection to hold our implicit animations:
+ ```csharp
+        private ImplicitAnimationCollection _implicitAnimations;
+ ```
+ > **Note**: To learn more about implicit animations see @robmikh blog post [Exploring Implicit Animations](http://blog.robmikh.com/uwp/xaml/composition/2016/08/18/exploring-implicit-animations.html)
+
+ 9. We now get to the key parts of a `Behavior` - what happens when the behavior is attached to an element and when it is detached from an element.
+
+ ```csharp
+        protected override void OnAttached()
+        {
+            base.OnAttached();
+
+            var element = AssociatedObject as UIElement;
+            if (element != null)
+            {
+                EnsureImplicitAnimations(element);
+                // Check to see if the element has a SpriteVisual - assumption being that is what is going to be sized
+                var visual = element.GetChildVisual() ?? element.GetVisual();
+                visual.ImplicitAnimations = _implicitAnimations;
+            }
+        }
+ ```
+
+In this code, we first ensure we have been attached to an instance of a `UIElement`. We then make sure we have setup our implicit animations (we'll cover that method shortly). We then determine what visual we are actually going to be animating. Here I have made an assumption - if there is no child visual (which could be either a `SpriteVisual` or a `ContainerVisual`) then we are going to animate the underlying visual for the element itself. However, if there is a child visual, then we are going to assume that is the visual that will be animated.
+
+ > **Note**: I have created some extension methods that simplify getting the visuals - they live in the `Extensions.cs` file in the root of the `C211.Uwp.Composition` class library.
+
+ > **Note**: In this sample, I have included a user control `VisualControl` - this control uses a `SpriteVisual` to render an image so you can see this logic working. The other two display regions are a `StackPanel` and a `ScrollViewer` - in these cases, it will the element visual that is animated.
+
+ 10. Now lets look at the detaching behavior:
+
+```csharp
+        protected override void OnDetaching()
+        {
+            base.OnDetaching();
+
+            var element = AssociatedObject as UIElement;
+            if (element != null)
+            {
+                var visual = element.GetChildVisual() ?? element.GetVisual();
+                visual.ImplicitAnimations = null;
+            }
+        }
+```
+Once again, we first ensure we have been attached to an instance of a `UIElement`. We then determine what visual we have been animating. We then remove the implicit animations from it.
+
+ 11. Finally, we need to create out implicit animations:
+
+ ```csharp
+        private void EnsureImplicitAnimations(UIElement element)
+        {
+            if (_implicitAnimations == null)
+            {
+                if (_compositor == null)
+                {
+                    _compositor = element.GetCompositor();
+                }
+                var offsetAnimation = _compositor.CreateImplicitVector3Animation(
+                    nameof(Visual.Offset),
+                    TimeSpan.FromMilliseconds(DurationMilliSeconds));
+
+                var sizeAnimation = _compositor.CreateImplicitVector2Animation(
+                    nameof(Visual.Size),
+                    TimeSpan.FromMilliseconds(DurationMilliSeconds));
+
+                _implicitAnimations = _compositor.CreateImplicitAnimationCollection();
+                _implicitAnimations[nameof(Visual.Offset)] = offsetAnimation;
+                _implicitAnimations[nameof(Visual.Size)] = sizeAnimation;
+            }
+        }
+ ```
+
+ We first check to see if we have already created our animations - no sense creating them again! We then grab a reference to the `Compositor` for our element. We then create two animations - one that will animate our visual's Offset (i.e. position specifed in X, Y & Z - hence `Vector3`) and another, our visual's size (specified in X & Y, hence `Vector2`). Once we have our animations, we create an `ImplicitAnimationCollection` and add our animations to the collection with a key set to the string name of the controlling property. The implicit animations are then ready to be used elsewhere.
+ 
+ The key thing to understand about implicit animations is that once they are set up, the composition system will monitor the values of the visual properties (e.g. `Offset`) and if the system detects a change, it will run the associated animation *from* the current value *to* the new final value.
+
+  > **Note**: To learn more about implicit animations see @robmikh blog post [Exploring Implicit Animations](http://blog.robmikh.com/uwp/xaml/composition/2016/08/18/exploring-implicit-animations.html) 
+
+ > **Note**: I have created some extension methods that simplify grabbing the compositor and creating the animations - they live in the `Extensions.cs` file in the root of the `C211.Uwp.Composition` class library.
+
+ 12. Run the sample and you should see the smooth animations.
