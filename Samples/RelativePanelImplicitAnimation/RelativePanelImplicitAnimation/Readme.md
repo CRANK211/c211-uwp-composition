@@ -369,4 +369,4 @@ In this sample we are using:
 
     > **Note**: I have created some extension methods that simplify grabbing the compositor and creating the animations - they live in the `Extensions.cs` file in the root of the `C211.Uwp.Composition` class library.
 
- 1. Run the sample and you should see the smooth animations.
+ 1. Run the sample and you should see the smooth animations. By attaching the behavior to each of the elements within the `RelativePanel`, the composition system monitors their position and size by way fo the implicit animations. When a trigger fires to reposition an element, the implicit animation detects that change and runs an offset and/or size animation as necessary.
