@@ -42,10 +42,6 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         
-        <Rectangle Grid.RowSpan="6"
-                   Grid.ColumnSpan="4"
-                   Fill="#50AAAAAA"/>
-
         <TextBox FontSize="36"
                  TextAlignment="Right"
                  Text="0"
