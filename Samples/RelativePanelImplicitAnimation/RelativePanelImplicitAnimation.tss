@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ArrayOfArrayOfString>
+    <ArrayOfString>
+      <string>c:\users\daren\source\repos\c211-uwp-composition\c211.uwp.composition\extensions.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>c:\users\daren\source\repos\c211-uwp-composition\samples\relativepanelimplicitanimation\relativepanelimplicitanimation\mainpage.xaml</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Daren\Source\Repos\c211-uwp-composition\C211.Uwp.Composition\Behaviors\SizeAndOffsetImplicitAnimationBehavior.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>c:\users\daren\source\repos\c211-uwp-composition\c211.uwp.composition\controls\visualcontrol.xaml</string>
+      <string>c:\users\daren\source\repos\c211-uwp-composition\c211.uwp.composition\controls\visualcontrol.xaml.cs</string>
+    </ArrayOfString>
+  </ArrayOfArrayOfString>
+</ArrayOfArrayOfArrayOfString>
