@@ -1,0 +1,145 @@
+﻿<Page
+    x:Class="TransparentWindows.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TransparentWindows"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    
+    <Page.Resources>
+        <SolidColorBrush x:Key="ButtonBackground" Color="DodgerBlue"/>
+        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="DodgerBlue"/>
+        <SolidColorBrush x:Key="ButtonBackgroundPointerPressed" Color="DodgerBlue"/>
+        <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
+        <SolidColorBrush x:Key="ButtonBorderBrush" Color="MediumSlateBlue"/>
+
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Margin" Value="16"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Rectangle Grid.RowSpan="6"
+                   Grid.ColumnSpan="4"
+                   Fill="#50AAAAAA"/>
+
+        <TextBox FontSize="36"
+                 TextAlignment="Right"
+                 Text="0"
+                 Margin="16,48,16,0"
+                 Grid.ColumnSpan="4"
+                 IsReadOnly="True"/>
+
+        <!-- 1 -->
+
+        <Button Grid.Row="1"
+                Grid.Column="0">CE</Button>
+
+        <Button Grid.Row="1"
+                Grid.Column="1">C</Button>
+
+        <Button Grid.Row="1"
+                Grid.Column="2">
+            <TextBlock FontFamily="Segoe MDL2 Assets"
+                       Text="&#xE925;"/>
+        </Button>
+
+        <Button Grid.Row="1"
+                Grid.Column="3">
+            <TextBlock FontFamily="Segoe MDL2 Assets"
+                       Text="&#xE94A;"/>
+        </Button>
+
+        <!-- 2 -->
+
+        <Button Grid.Row="2"
+                Grid.Column="0">7</Button>
+
+        <Button Grid.Row="2"
+                Grid.Column="1">8</Button>
+
+        <Button Grid.Row="2"
+                Grid.Column="2">9</Button>
+
+        <Button Grid.Row="2"
+                Grid.Column="3">
+            <TextBlock FontFamily="Segoe MDL2 Assets"
+                       Text="&#xE947;"/>
+        </Button>
+
+        <!-- 3 -->
+
+        <Button Grid.Row="3"
+                Grid.Column="0">4</Button>
+
+        <Button Grid.Row="3"
+                Grid.Column="1">5</Button>
+
+        <Button Grid.Row="3"
+                Grid.Column="2">6</Button>
+
+        <Button Grid.Row="3"
+                Grid.Column="3">
+            <TextBlock FontFamily="Segoe MDL2 Assets"
+                       Text="&#xE949;"/>
+        </Button>
+
+        <!-- 4 -->
+
+        <Button Grid.Row="4"
+                Grid.Column="0">1</Button>
+
+        <Button Grid.Row="4"
+                Grid.Column="1">2</Button>
+
+        <Button Grid.Row="4"
+                Grid.Column="2">3</Button>
+
+        <Button Grid.Row="4"
+                Grid.Column="3">
+            <TextBlock FontFamily="Segoe MDL2 Assets"
+                       Text="&#xE948;"/>
+        </Button>
+
+        <!-- 5 -->
+
+        <Button Grid.Row="5"
+                Grid.Column="0">
+            <TextBlock FontFamily="Segoe MDL2 Assets"
+                       Text="&#xE94D;"/>
+        </Button>
+
+        <Button Grid.Row="5"
+                Grid.Column="1">0</Button>
+
+        <Button Grid.Row="5"
+                Grid.Column="2">.</Button>
+
+        <Button Grid.Row="5"
+                Grid.Column="3">
+            <TextBlock FontFamily="Segoe MDL2 Assets"
+                       Text="&#xE94e;"/>
+        </Button>
+
+    </Grid>
+</Page>
