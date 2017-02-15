@@ -6,4 +6,5 @@ This initial load has the code that supports a sample we put together that demos
 
 ## Samples ##
 
-[Relative Panel Implicit Animations](./Samples/RelativePanelImplicitAnimation/RelativePanelImplicitAnimation/Readme.md)
+* [Relative Panel Implicit Animations](./Samples/RelativePanelImplicitAnimation/RelativePanelImplicitAnimation/Readme.md)
+* [CustomConnectedAnimation](https://github.com/CRANK211/c211-uwp-composition/tree/master/Samples/CustomConnectedAnimation/CustomConnectedAnimation)
