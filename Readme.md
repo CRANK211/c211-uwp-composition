@@ -8,3 +8,4 @@ This initial load has the code that supports a sample we put together that demos
 
 * [Relative Panel Implicit Animations](./Samples/RelativePanelImplicitAnimation/RelativePanelImplicitAnimation/Readme.md)
 * [CustomConnectedAnimation](https://github.com/CRANK211/c211-uwp-composition/tree/master/Samples/CustomConnectedAnimation/CustomConnectedAnimation)
+* [Transparent Window - Creators Edition and Insider SDK 15021+](https://github.com/CRANK211/c211-uwp-composition/tree/master/Samples/Creators-TransparentWindows/TransparentWindows)
