@@ -23,6 +23,9 @@
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <local:TransparentBrush Compositor="{x:Bind Compositor}"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

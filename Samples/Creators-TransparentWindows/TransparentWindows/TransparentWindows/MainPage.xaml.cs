@@ -13,28 +13,34 @@ namespace TransparentWindows
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private readonly Compositor _compositor;
-
         public MainPage()
         {
+            Compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             InitializeComponent();
-            _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
-            LayoutRoot.Background = new TransparentBrush(_compositor);
-            CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
         }
+
+        public Compositor Compositor { get; set; }
     }
 
     /// <summary>
-    /// This class extends the <see cref="XamlCompositionBrushBase"/> class
-    /// to create a simple brush that can used whereever a regular XAML brush
-    /// can be used. This one creates a glass background for our app.
+    ///     This class extends the <see cref="XamlCompositionBrushBase" /> class
+    ///     to create a simple brush that can used whereever a regular XAML brush
+    ///     can be used. This one creates a glass background for our app.
     /// </summary>
     public class TransparentBrush : XamlCompositionBrushBase
     {
-        public TransparentBrush(Compositor compositor)
+        private Compositor _compositor;
+
+        public Compositor Compositor
         {
-            CompositionBrush = compositor.CreateHostBackdropBrush();
+            get { return _compositor; }
+            set
+            {
+                _compositor = value;
+                CompositionBrush = _compositor.CreateHostBackdropBrush();
+            }
         }
     }
 }
