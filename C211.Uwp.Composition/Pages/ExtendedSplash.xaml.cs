@@ -1,9 +1,15 @@
 ﻿using System;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
+using Windows.UI;
+using Windows.UI.Composition;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Hosting;
+using Windows.UI.Xaml.Media;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -19,12 +25,24 @@ namespace C211.Uwp.Composition.Pages
         internal bool Dismissed; // Variable to track splash screen dismissal status.
         internal Frame RootFrame;
         internal Rect SplashImageRect; // Rect to store splash screen image coordinates.
+        private double _titleBarHeight;
 
-        public ExtendedSplash(SplashScreen splashscreen, bool loadState, Type redirectToPageType)
+        public ExtendedSplash(
+            SplashScreen splashscreen, 
+            Type redirectToPageType, 
+            ImageSource splashImage,
+            Color tintColor)
         {
             InitializeComponent();
+            this.Compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
+
+            BackgroundBrush.TintColor = tintColor;
+            OpacityLayer.Fill = new SolidColorBrush(tintColor);
+
+            ConfigureTitleBar();
 
             _redirectToPageType = redirectToPageType;
+
             // Listen for window resize events to reposition the extended splash screen image accordingly.
             // This ensures that the extended splash screen formats properly in response to window resizing.
             Window.Current.SizeChanged += ExtendedSplash_OnResize;
@@ -37,6 +55,7 @@ namespace C211.Uwp.Composition.Pages
 
                 // Retrieve the window coordinates of the splash screen image.
                 SplashImageRect = _splash.ImageLocation;
+                extendedSplashImage.Source = splashImage;
                 PositionImage();
 
                 // If applicable, include a method for positioning a progress control.
@@ -45,12 +64,28 @@ namespace C211.Uwp.Composition.Pages
 
             // Create a Frame to act as the navigation context
             RootFrame = new Frame();
+            BackgroundOpacityStoryboard.Begin();
         }
+
+        private void ConfigureTitleBar()
+        {
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            _titleBarHeight = coreTitleBar.Height;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.BackgroundColor = BackgroundBrush.TintColor;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonForegroundColor = Colors.White;
+        }
+
+        public Compositor Compositor { get; set; }
 
         private void PositionImage()
         {
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            _titleBarHeight = coreTitleBar.Height == 0.0 ? 32 : coreTitleBar.Height;
             extendedSplashImage.SetValue(Canvas.LeftProperty, SplashImageRect.X);
-            extendedSplashImage.SetValue(Canvas.TopProperty, SplashImageRect.Y);
+            extendedSplashImage.SetValue(Canvas.TopProperty, SplashImageRect.Y + _titleBarHeight);
             extendedSplashImage.Height = SplashImageRect.Height;
             extendedSplashImage.Width = SplashImageRect.Width;
         }
@@ -60,7 +95,7 @@ namespace C211.Uwp.Composition.Pages
             splashProgressRing.SetValue(Canvas.LeftProperty,
                 SplashImageRect.X + SplashImageRect.Width * 0.5 - splashProgressRing.Width * 0.5);
             splashProgressRing.SetValue(Canvas.TopProperty,
-                SplashImageRect.Y + SplashImageRect.Height + SplashImageRect.Height * 0.1);
+                SplashImageRect.Y  + SplashImageRect.Height + SplashImageRect.Height * 0.1);
         }
 
         // Include code to be executed when the system has transitioned from the splash screen to the extended splash screen (application's first view).
@@ -71,7 +106,7 @@ namespace C211.Uwp.Composition.Pages
             // Complete app setup operations here...
         }
 
-        private void DismissExtendedSplash()
+        public void DismissExtendedSplash()
         {
             // Navigate to mainpage
             RootFrame.Navigate(_redirectToPageType);
@@ -89,15 +124,7 @@ namespace C211.Uwp.Composition.Pages
                 PositionImage();
 
                 // If applicable, include a method for positioning a progress control.
-                // PositionRing();
-            }
-        }
-
-        private async void RestoreStateAsync(bool loadState)
-        {
-            if (loadState)
-            {
-                // code to load your app's state here
+                PositionRing();
             }
         }
     }

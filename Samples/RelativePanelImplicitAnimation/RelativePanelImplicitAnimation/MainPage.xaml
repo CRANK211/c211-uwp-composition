@@ -8,9 +8,14 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:behaviors="using:C211.Uwp.Composition.Behaviors"
     xmlns:controls="using:C211.Uwp.Composition.Controls"
+    xmlns:brushes="using:C211.Uwp.Composition.Brushes"
     mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot">
+        <!--<Grid.Background>
+            <brushes:TransparentBrush TintColor="#009999" Compositor="{x:Bind Compositor}"/>
+        </Grid.Background>-->
+        
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="WideState">
@@ -84,13 +89,14 @@
 
 
         <RelativePanel HorizontalAlignment="Stretch"
-                       Margin="20">
+                       Margin="20,0,20,20">
 
             <controls:VisualControl ImageUri="ms-appx:///assets/IMG_1343.JPG"
                                     x:Name="Poster"
                                     Width="600"
                                     Height="900"
-                                    Margin="12">
+                                    Margin="12"
+                                    VerticalAlignment="Top">
                 <interactivity:Interaction.Behaviors>
                     <behaviors:SizeAndOffsetImplicitAnimationBehavior DurationMilliSeconds="300" />
                 </interactivity:Interaction.Behaviors>
