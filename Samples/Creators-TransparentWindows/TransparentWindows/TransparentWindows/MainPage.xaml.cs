@@ -1,5 +1,6 @@
 ﻿using Windows.ApplicationModel.Core;
 using Windows.Graphics.Effects;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
@@ -17,7 +18,7 @@ namespace TransparentWindows
     {
         public MainPage()
         {
-            Compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
+            this.Compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             InitializeComponent();
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
@@ -35,12 +36,17 @@ namespace TransparentWindows
     {
         private Compositor _compositor;
 
+        public TransparentBrush()
+        {
+            this.FallbackColor = Color.FromArgb(128, 55, 55, 55);
+        }
+
         public Compositor Compositor
         {
-            get { return _compositor; }
+            get { return this._compositor; }
             set
             {
-                _compositor = value;
+                this._compositor = value;
 
                 // adding a grey tint to the background
                 var colorMatrix = new Matrix5x4()
@@ -73,11 +79,11 @@ namespace TransparentWindows
                     Source = new CompositionEffectSourceParameter("Background")
                 };
 
-                var effectFactory = _compositor.CreateEffectFactory(graphicsEffect, null);
+                var effectFactory = this._compositor.CreateEffectFactory(graphicsEffect, null);
                 var brush = effectFactory.CreateBrush();
 
-                brush.SetSourceParameter("Background", _compositor.CreateHostBackdropBrush());
-                CompositionBrush = brush;
+                brush.SetSourceParameter("Background", this._compositor.CreateHostBackdropBrush());
+                this.CompositionBrush = brush;
             }
         }
     }

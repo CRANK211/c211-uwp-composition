@@ -1,8 +1,8 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.0",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
     "Microsoft.Xaml.Behaviors.Uwp.Managed": "2.0.0",
-    "Robmikh.CompositionSurfaceFactory": "0.7.0-alpha"
+    "Robmikh.CompositionSurfaceFactory": "0.7.1"
   },
   "frameworks": {
     "uap10.0": {}
