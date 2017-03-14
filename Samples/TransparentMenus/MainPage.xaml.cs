@@ -27,14 +27,14 @@ namespace TransparentMenu
         {
             this.InitializeComponent();
 
-            hamburgerMenuControl.ItemsSource = MenuItem.GetMainItems();
-            hamburgerMenuControl.OptionsItemsSource = MenuItem.GetOptionsItems();
+            this.hamburgerMenuControl.ItemsSource = MenuItem.GetMainItems();
+            this.hamburgerMenuControl.OptionsItemsSource = MenuItem.GetOptionsItems();
         }
 
         private void OnMenuItemClick(object sender, ItemClickEventArgs e)
         {
             var menuItem = e.ClickedItem as MenuItem;
-            contentFrame.Navigate(menuItem.PageType);
+            this.contentFrame.Navigate(menuItem.PageType);
         }
     }
 

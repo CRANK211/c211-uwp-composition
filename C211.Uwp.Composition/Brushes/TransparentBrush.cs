@@ -13,7 +13,7 @@ namespace C211.Uwp.Composition.Brushes
 
         public TransparentBrush()
         {
-            FallbackColor = Color.FromArgb(255, 55, 55, 55);
+            FallbackColor = Color.FromArgb(128, 55, 55, 55);
         }
 
         public static readonly DependencyProperty TintColorProperty = DependencyProperty.Register(
@@ -32,21 +32,11 @@ namespace C211.Uwp.Composition.Brushes
             set { SetValue(TintColorProperty, value); }
         }
 
-        public Compositor Compositor
-        {
-            get { return _compositor; }
-            set
-            {
-                _compositor = value;
-                BuildBrush();
-            }
-        }
-
         private void BuildBrush()
         {
             if (_compositor == null)
             {
-                return;
+                _compositor = Window.Current.Compositor;
             }
 
             // adding a grey tint to the background
@@ -68,7 +58,8 @@ namespace C211.Uwp.Composition.Brushes
 
         protected override void OnConnected()
         {
-            base.OnConnected();
+            _compositor = Window.Current.Compositor;
+            BuildBrush();
         }
     }
 }

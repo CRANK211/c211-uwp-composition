@@ -56,7 +56,7 @@ namespace RelativePanelImplicitAnimation
                         e.SplashScreen,
                         typeof(MainPage),
                         new BitmapImage(new Uri("ms-appx:///Assets/SplashScreen.png")),
-                        Color.FromArgb(255, 00, 153, 153));
+                        Color.FromArgb(200, 00, 153, 153));
                     rootFrame.Content = extendedSplash;
                     Window.Current.Content = rootFrame;
                     Task.Run(() => PerformLoadingTask(extendedSplash));

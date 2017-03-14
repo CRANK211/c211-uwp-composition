@@ -13,7 +13,7 @@
 
     <Grid x:Name="LayoutRoot">
         <Grid.Background>
-            <brushes:TransparentBrush TintColor="#FFFFFF" Compositor="{x:Bind Compositor}"/>
+            <brushes:TransparentBrush TintColor="#8022AAAA"/>
         </Grid.Background>
         
         <VisualStateManager.VisualStateGroups>
