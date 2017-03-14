@@ -64,5 +64,11 @@ namespace C211.Uwp.Composition.Brushes
             brush.SetSourceParameter("Background", _compositor.CreateHostBackdropBrush());
             CompositionBrush = brush;
         }
+
+
+        protected override void OnConnected()
+        {
+            base.OnConnected();
+        }
     }
 }

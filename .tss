@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ArrayOfArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Daren\Source\Repos\c211-uwp-composition\C211.Uwp.Composition\Services\ConnectedVisualService.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Daren\Source\Repos\c211-uwp-composition\Samples\CustomConnectedAnimation\CustomConnectedAnimation\DetailPage.xaml</string>
+      <string>C:\Users\Daren\Source\Repos\c211-uwp-composition\Samples\CustomConnectedAnimation\CustomConnectedAnimation\DetailPage.xaml.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Daren\Source\Repos\c211-uwp-composition\Samples\CustomConnectedAnimation\CustomConnectedAnimation\ListPage.xaml</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Daren\Source\Repos\c211-uwp-composition\Samples\CustomConnectedAnimation\CustomConnectedAnimation\MainPage.xaml</string>
+      <string>C:\Users\Daren\Source\Repos\c211-uwp-composition\Samples\CustomConnectedAnimation\CustomConnectedAnimation\MainPage.xaml.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Daren\Source\Repos\c211-uwp-composition\C211.Uwp.Composition\Controls\VisualImage.xaml</string>
+      <string>C:\Users\Daren\Source\Repos\c211-uwp-composition\C211.Uwp.Composition\Controls\VisualImage.xaml.cs</string>
+    </ArrayOfString>
+  </ArrayOfArrayOfString>
+</ArrayOfArrayOfArrayOfString>
