@@ -12,9 +12,9 @@
     mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot">
-        <!--<Grid.Background>
-            <brushes:TransparentBrush TintColor="#009999" Compositor="{x:Bind Compositor}"/>
-        </Grid.Background>-->
+        <Grid.Background>
+            <brushes:TransparentBrush TintColor="#8022AAAA"/>
+        </Grid.Background>
         
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>

@@ -31,12 +31,11 @@ namespace C211.Uwp.Composition.Behaviors
         {
             base.OnAttached();
 
-            var element = AssociatedObject as UIElement;
-            if (element != null)
+            if (AssociatedObject is UIElement element)
             {
                 EnsureImplicitAnimations(element);
                 // Check to see if the element has a SpriteVisual - assumption being that is what is going to be sized
-                var visual = element.GetChildVisual() ?? element.GetVisual();
+                Visual visual = element.GetChildVisual() ?? element.GetVisual();
                 visual.ImplicitAnimations = _implicitAnimations;
             }
         }
@@ -45,8 +44,7 @@ namespace C211.Uwp.Composition.Behaviors
         {
             base.OnDetaching();
 
-            var element = AssociatedObject as UIElement;
-            if (element != null)
+            if (AssociatedObject is UIElement element)
             {
                 var visual = element.GetChildVisual() ?? element.GetVisual();
                 visual.ImplicitAnimations = null;

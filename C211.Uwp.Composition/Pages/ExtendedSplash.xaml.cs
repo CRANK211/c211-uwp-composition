@@ -34,7 +34,6 @@ namespace C211.Uwp.Composition.Pages
             Color tintColor)
         {
             InitializeComponent();
-            this.Compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
 
             BackgroundBrush.TintColor = tintColor;
             OpacityLayer.Fill = new SolidColorBrush(tintColor);
@@ -78,7 +77,7 @@ namespace C211.Uwp.Composition.Pages
             titleBar.ButtonForegroundColor = Colors.White;
         }
 
-        public Compositor Compositor { get; set; }
+        public Compositor Compositor => ElementCompositionPreview.GetElementVisual(this).Compositor;
 
         private void PositionImage()
         {

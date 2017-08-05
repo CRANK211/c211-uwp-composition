@@ -1,0 +1,18 @@
+﻿<local:CompositionPage
+    x:Class="TransparentMenu.Views.BlankPage1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TransparentMenu.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:brushes="using:C211.Uwp.Composition.Brushes"
+    mc:Ignorable="d"
+    RequestedTheme="Dark">
+
+    <Grid>
+        <Grid.Background>
+            <brushes:TransparentBrush TintColor="#666666" Compositor="{x:Bind Compositor}"/>
+        </Grid.Background>
+
+    </Grid>
+</local:CompositionPage>

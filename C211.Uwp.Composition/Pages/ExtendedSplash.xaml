@@ -9,7 +9,8 @@
     mc:Ignorable="d">
     <Page.Resources>
         <Storyboard x:Name="BackgroundOpacityStoryboard">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Rectangle.Opacity)" Storyboard.TargetName="OpacityLayer">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Rectangle.Opacity)" 
+                                           Storyboard.TargetName="OpacityLayer">
                 <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
@@ -17,7 +18,7 @@
     </Page.Resources>
     <Grid x:Name="grid">
         <Grid.Background>
-            <brushes:TransparentBrush x:Name="BackgroundBrush" Compositor="{x:Bind Compositor}"/>
+            <brushes:TransparentBrush x:Name="BackgroundBrush" />
         </Grid.Background>
         
         <Rectangle x:Name="OpacityLayer"/>

@@ -21,8 +21,6 @@ namespace RelativePanelImplicitAnimation
             ConfigureTitleBar();
         }
 
-        public Compositor Compositor => this.GetCompositor();
-
         private void ConfigureTitleBar()
         {
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
