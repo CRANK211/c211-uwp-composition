@@ -16,7 +16,7 @@ namespace C211.Uwp.Composition.Behaviors
             "DurationMilliSeconds", typeof(double), typeof(SizeAndOffsetImplicitAnimationBehavior),
             new PropertyMetadata(200d));
 
-        private ImplicitAnimationCollection _implicitAnimations;
+        private static ImplicitAnimationCollection _implicitAnimations;
 
         /// <summary>
         ///     The duration of the animations in MilliSeconds
